@@ -1,28 +1,18 @@
-version: 2.1
+version: '2.1'
 orbs:
   aws-cli: underw8/aws-assume-role@0.1.0
-
-jobs:
-  deploy_project:
+  aws-cli-example:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/assume:
           profile-name: default
       - run:
-         name: Setup Stage
-         command: aws s3 sync ./a/ s3://asfdfsdfsdf/static/img/ --delete
+          command: |
+            aws s3 ls --profile default
+          name: Test the assumed role
 workflows:
-  version: 2
-  deploy_app:
-   jobs:
-     - deploy_project:
-         # must use a valid CircleCI context
-         context: aws
-         filters:
-            branches:
-              only:
-                - dev
-                - qa
-                - main
-                - circleci-project-setup
+  aws-cli:
+    jobs:
+      - aws-cli-example:
+          context: aws

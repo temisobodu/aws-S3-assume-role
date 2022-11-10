@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-assume-role: underw8/aws-assume-role@0.1.0
+  aws-cli: underw8/aws-assume-role@0.1.0
 
 jobs:
   deploy_project:
